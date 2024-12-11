@@ -1,20 +1,21 @@
-# Use the official Node.js image as a base
+# Use the official Node.js image.
 FROM node:14
 
-# Set the working directory inside the container
+# Set the working directory inside the container.
 WORKDIR /app
 
-# Copy package.json and package-lock.json files to the working directory
+# Copy package.json and package-lock.json.
 COPY package*.json ./
 
-# Install dependencies
+# Install dependencies.
 RUN npm install
 
-# Copy the rest of the application code to the working directory
+# Copy the rest of the application code.
 COPY . .
 
-# Expose port 3000 for the application
-EXPOSE 3000
+# Build the React app.
+RUN npm run build
 
-# Command to run the application
-CMD ["npm", "start"]
+# Serve the app using a simple server.
+RUN npm install -g serve
+CMD ["serve", "-s", "build"]
