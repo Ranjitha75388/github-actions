@@ -30,12 +30,15 @@ jobs:
         run: |
           cd react-hooks-frontend
           npm install
+     # list the files
+      - name: List the files
+        run: ls
 
       # Step 4: Build the Docker image
       - name: Build the Docker image
         run: |
           docker buildx build -f react-hooks-frontend/Dockerfile -t ${{ secrets.DOCKERHUB_USERNAME }}/my-reactapp:latest react-hooks-frontend --push
-     
+
  # Step 5: Push the Docker image to Docker Hub
 ##      - name: Push the Docker image
 ##        run: |
