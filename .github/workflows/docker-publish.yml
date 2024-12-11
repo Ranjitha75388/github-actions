@@ -32,7 +32,9 @@ jobs:
           npm install
      # list the files
       - name: List the files
-        run: ls
+        run: |
+          cd react-hooks-frontend
+          ls
 
       # Step 4: Build the Docker image
       - name: Build the Docker image
