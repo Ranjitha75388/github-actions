@@ -39,7 +39,7 @@ jobs:
           context: ./react-hooks-frontend  # Set the context to the directory containing the Dockerfile
           file: ./react-hooks-frontend/Dockerfile  # Specify the Dockerfile location
           push: true  # Push the image to Docker Hub after building
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/my-reactapp:latest  # Tag for the image
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/my-reactapp:latest
 
       # Step 5: Log in to Docker Hub (optional if using build-push-action with push=true)
       - name: Log in to Docker Hub
