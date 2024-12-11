@@ -24,7 +24,7 @@ jobs:
       - name: Install Dependencies
         run: |
           cd react-hooks-frontend
-          npm install  # or use npm ci if you have a package-lock.json
+          npm install
 
       # Optional: List files to verify contents (for debugging)
       - name: List the files
