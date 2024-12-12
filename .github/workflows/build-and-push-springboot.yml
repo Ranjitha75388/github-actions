@@ -17,6 +17,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '17'
+          distribution: linux/amd64
 
       - name: Build the application
         run: mvn clean package --file pom.xml
@@ -34,3 +35,4 @@ jobs:
           file: ./springboot-backend/Dockerfile  # Specify the Dockerfile location
           push: true  # Push the image to Docker Hub after building
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/my-spring-bootapp:latest
+
