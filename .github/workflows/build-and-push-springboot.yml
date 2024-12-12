@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     services:
-      mysql:
+      database:
         image: mysql:8
         environment:
           MYSQL_DATABASE: mynewdatabase
@@ -19,11 +19,6 @@ jobs:
           MYSQL_ROOT_PASSWORD: ranjitha
         ports:
           - "3306:3306"
-        options: >-
-          --health-cmd="mysqladmin ping -h localhost"
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=3
 
     steps:
       - name: Checkout code
@@ -45,10 +40,10 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build the application
-        run: mvn clean package --file ./springboot-backend/pom.xml
+        run: mvn clean package --file "./springboot-backend/pom.xml"
 
       - name: Run Tests
-        run: mvn test --file ./springboot-backend/pom.xml
+        run: mvn test --file "./springboot-backend/pom.xml"
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
@@ -57,3 +52,15 @@ jobs:
           file: ./springboot-backend/Dockerfile  # Specify the Dockerfile location
           push: true  # Push the image to Docker Hub after building
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/my-spring-bootapp:latest
+
+      - name: Run Docker Container for Backend Service
+        run: |
+          docker run -d \
+            --name springboot-backend \
+            --network frontend_network \
+            --network backend_network \
+            -p 8080:8080 \
+            -e SPRING_DATASOURCE_URL=jdbc:mysql://database:3306/mynewdatabase?useSSL=false&allowPublicKeyRetrieval=true \
+            -e SPRING_DATASOURCE_USERNAME=root \
+            -e SPRING_DATASOURCE_PASSWORD=ranjitha \
+            ${{ secrets.DOCKERHUB_USERNAME }}/my-spring-bootapp:latest
