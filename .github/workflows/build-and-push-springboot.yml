@@ -55,11 +55,6 @@ jobs:
 
       - name: Run Docker Container for Backend Service
         run: |
-          docker run -d \
-            --name springboot-backend \
-            --network frontend_network \
-            --network backend_network \
-            -p 8080:8080 \
             -e SPRING_DATASOURCE_URL=jdbc:mysql://database:3306/mynewdatabase?useSSL=false&allowPublicKeyRetrieval=true \
             -e SPRING_DATASOURCE_USERNAME=root \
             -e SPRING_DATASOURCE_PASSWORD=ranjitha \
