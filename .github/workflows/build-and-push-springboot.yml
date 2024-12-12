@@ -10,7 +10,8 @@ jobs:
     runs-on: ubuntu-latest
 
 services:
-  image: mysql:8
+  mysql:
+    image: mysql:8
     environment:
       MYSQL_DATABASE: mynewdatabase
       MYSQL_USER: ranjitha
@@ -18,6 +19,7 @@ services:
       MYSQL_ROOT_PASSWORD: ranjitha
     ports:
       - "3306:3306"
+
 
     steps:
       - name: Checkout code
