@@ -12,6 +12,11 @@ jobs:
     services:
       database:
         image: mysql:8
+        env:
+          MYSQL_DATABASE: mynewdatabase
+          MYSQL_USER: ranjitha
+          MYSQL_PASSWORD: ranjitha
+          MYSQL_ROOT_PASSWORD: ranjitha
         ports:
           - "3306:3306"
 
