@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
 services:
-   image: mysql:8
+  image: mysql:8
     environment:
       MYSQL_DATABASE: mynewdatabase
       MYSQL_USER: ranjitha
