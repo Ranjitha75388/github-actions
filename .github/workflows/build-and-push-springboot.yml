@@ -1,4 +1,4 @@
-name: Build and Push springboot Image
+name: Build and Push Spring Boot Image
 
 on:
   push:
@@ -9,17 +9,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-services:
-  mysql:
-    image: mysql:8
-    environment:
-      MYSQL_DATABASE: mynewdatabase
-      MYSQL_USER: ranjitha
-      MYSQL_PASSWORD: ranjitha
-      MYSQL_ROOT_PASSWORD: ranjitha
-    ports:
-      - "3306:3306"
-
+    services:
+      mysql:
+        image: mysql:8
+        environment:
+          MYSQL_DATABASE: mynewdatabase
+          MYSQL_USER: ranjitha
+          MYSQL_PASSWORD: ranjitha
+          MYSQL_ROOT_PASSWORD: ranjitha
+        ports:
+          - "3306:3306"
 
     steps:
       - name: Checkout code
@@ -44,14 +43,7 @@ services:
         run: mvn clean package --file ./springboot-backend/pom.xml
 
       - name: Run Tests
-        run: mvn test --file ./springboot backend/pom.xml
-
-
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+        run: mvn test --file ./springboot-backend/pom.xml
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
@@ -60,4 +52,3 @@ services:
           file: ./springboot-backend/Dockerfile  # Specify the Dockerfile location
           push: true  # Push the image to Docker Hub after building
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/my-spring-bootapp:latest
-
