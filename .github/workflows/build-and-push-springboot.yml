@@ -19,9 +19,7 @@ jobs:
           MYSQL_ROOT_PASSWORD: ranjitha
         ports:
           - "3306:3306"
-          SPRING_DATASOURCE_URL: jdbc:mysql://database:3306/mynewdatabase?useSSL=false&allowPublicKeyRetrieval=true
-          SPRING_DATASOURCE_USERNAME: root
-          SPRING_DATASOURCE_PASSWORD: ranjitha
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -56,3 +54,17 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/my-spring-bootapp:latest
 
 
+      - name: Wait for MySQL to be ready
+        run: |
+          echo "Waiting for MySQL to be ready..."
+          for i in {1..30}; do
+            if nc -z database 3306; then
+              echo "MySQL is up!"
+              break
+            fi
+            echo "Waiting for MySQL..."
+            sleep 5
+          done
+
+      - name: Run Application Integration Tests (Optional)
+        run: mvn verify --file "./springboot-backend/pom.xml"
