@@ -19,7 +19,6 @@ jobs:
           MYSQL_ROOT_PASSWORD: ranjitha
         ports:
           - "3306:3306"
-        env:
           SPRING_DATASOURCE_URL: jdbc:mysql://database:3306/mynewdatabase?useSSL=false&allowPublicKeyRetrieval=true
           SPRING_DATASOURCE_USERNAME: root
           SPRING_DATASOURCE_PASSWORD: ranjitha
