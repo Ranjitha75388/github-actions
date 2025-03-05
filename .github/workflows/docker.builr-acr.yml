@@ -33,5 +33,5 @@ jobs:
 
     - name: Build and Push Backend
       run: |
-        docker build -t ${{ secrets.ACR_NAME }}.azurecr.io/backend:latest ./backend
+        docker build -t ${{ secrets.ACR_NAME }}.azurecr.io/backend:latest ./springboot-backend
         docker push ${{ secrets.ACR_NAME }}.azurecr.io/backend:latest
