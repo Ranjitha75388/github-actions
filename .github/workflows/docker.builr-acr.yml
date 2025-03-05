@@ -5,7 +5,7 @@ on:
       - main
 
 permissions:
-  id-token: write
+  id-token: write   # This allows OIDC authentication
   contents: read
 
 jobs:
