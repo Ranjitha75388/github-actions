@@ -1,5 +1,5 @@
-/home/logesh/ranjitha/ranjitha_assesment/ems-ops-phase/springboot-backend/src/main/java/net/javaguides/springboot/repository/EmployeeRepository.java
-/home/logesh/ranjitha/ranjitha_assesment/ems-ops-phase/springboot-backend/src/main/java/net/javaguides/springboot/controller/EmployeeController.java
-/home/logesh/ranjitha/ranjitha_assesment/ems-ops-phase/springboot-backend/src/main/java/net/javaguides/springboot/exception/ResourceNotFoundException.java
-/home/logesh/ranjitha/ranjitha_assesment/ems-ops-phase/springboot-backend/src/main/java/net/javaguides/springboot/model/Employee.java
-/home/logesh/ranjitha/ranjitha_assesment/ems-ops-phase/springboot-backend/src/main/java/net/javaguides/springboot/SpringbootBackendApplication.java
+/home/logesh/ranjitha/github-actions/springboot-backend/src/main/java/net/javaguides/springboot/repository/EmployeeRepository.java
+/home/logesh/ranjitha/github-actions/springboot-backend/src/main/java/net/javaguides/springboot/controller/EmployeeController.java
+/home/logesh/ranjitha/github-actions/springboot-backend/src/main/java/net/javaguides/springboot/SpringbootBackendApplication.java
+/home/logesh/ranjitha/github-actions/springboot-backend/src/main/java/net/javaguides/springboot/exception/ResourceNotFoundException.java
+/home/logesh/ranjitha/github-actions/springboot-backend/src/main/java/net/javaguides/springboot/model/Employee.java
