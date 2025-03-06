@@ -1,8 +1,21 @@
 FROM openjdk:17-jdk-slim
-
 WORKDIR /app
 
-COPY target/springboot-backend-0.0.1-SNAPSHOT.jar /app/springboot-backend-0.0.1-SNAPSHOT.jar
+# Pass database credentials as build arguments
+ARG DB_HOST
+ARG DB_PORT
+ARG DB_USER
+ARG DB_PASSWORD
+ARG DB_NAME
+
+# Set environment variables for application
+ENV DB_HOST=${DB_HOST}
+ENV DB_PORT=${DB_PORT}
+ENV DB_USER=${DB_USER}
+ENV DB_PASSWORD=${DB_PASSWORD}
+ENV DB_NAME=${DB_NAME}
 
 
-ENTRYPOINT ["java", "-jar", "springboot-backend-0.0.1-SNAPSHOT.jar"]
+EXPOSE 8080
+COPY target/springboot-backend.jar app.jar
+ENTRYPOINT ["java", "-jar", "/app.jar"]
