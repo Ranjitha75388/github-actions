@@ -1,21 +1,24 @@
+# Stage 1: Build the application
+FROM maven:3.8.5-openjdk-17 AS build
+WORKDIR /app
+
+# Copy pom.xml and download dependencies (caching)
+COPY pom.xml .
+RUN mvn dependency:go-offline
+
+# Copy source code and build the application
+COPY src ./src
+RUN mvn clean package -DskipTests
+
+# Stage 2: Run the application
 FROM openjdk:17-jdk-slim
 WORKDIR /app
 
-# Pass database credentials as build arguments
-ARG DB_HOST
-ARG DB_PORT
-ARG DB_USER
-ARG DB_PASSWORD
-ARG DB_NAME
+# Copy the built JAR file from the previous stage
+COPY --from=build /app/target/springboot-backend.jar app.jar
 
-# Set environment variables for application
-ENV DB_HOST=${DB_HOST}
-ENV DB_PORT=${DB_PORT}
-ENV DB_USER=${DB_USER}
-ENV DB_PASSWORD=${DB_PASSWORD}
-ENV DB_NAME=${DB_NAME}
-
-
+# Expose the application port
 EXPOSE 8080
-COPY target/springboot-backend.jar app.jar
+
+# Run the application
 ENTRYPOINT ["java", "-jar", "/app.jar"]
