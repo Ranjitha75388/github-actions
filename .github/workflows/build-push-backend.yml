@@ -41,7 +41,7 @@ jobs:
 
           # Deploy or update the container app
           az containerapp up \
-            --name "${{ secrets.CONTAINER_APP_NAME_AUTO }}" \
+            --name "${{ secrets.CONTAINER_APP_NAME_AUTO_BACKEND }}" \
             --resource-group "${{ secrets.RESOURCE_GROUP }}" \
             --environment "${{ secrets.CONTAINERAPPS_ENVIRONMENT }}" \
             --image "${{ secrets.ACR_NAME }}.azurecr.io/my-backend:latest" \
