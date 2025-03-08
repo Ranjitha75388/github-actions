@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - main
-    paths:
-      - "react-hooks-frontend/**"     # path to frontend
+
+
   workflow_dispatch:
 
 jobs:
