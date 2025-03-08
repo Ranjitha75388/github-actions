@@ -25,9 +25,9 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-      - name: Log in to ACR
+      - name: Log in to Azure Container Registry (ACR)
         run: |
-          echo ${{ secrets.REGISTRY_PASSWORD }} | docker login ${{ secrets.ACR_NAME }}.azurecr.io -u ${{ secrets.REGISTRY_USERNAME }} --password-stdin
+          az acr login --name ${{ secrets.ACR_NAME }}
 
       - name: Build and Push Docker Image (Frontend)
         run: |
@@ -37,7 +37,16 @@ jobs:
 
       - name: Deploy Frontend to Azure Container Apps
         run: |
-          az containerapp update \
-            --name ${{ secrets.CONTAINER_APP_NAME_FRONTEND }} \
-            --resource-group ${{ secrets.RESOURCE_GROUP }} \
-            --image ${{ secrets.ACR_NAME }}.azurecr.io/my-frontend:latest
+          set -e  # Stop script if any command fails
+
+          # Deploy or update the container app
+          az containerapp up \
+            --name "${{ secrets.CONTAINER_APP_NAME_AUTO }}" \
+            --resource-group "${{ secrets.RESOURCE_GROUP }}" \
+            --environment "${{ secrets.CONTAINERAPPS_ENVIRONMENT }}" \
+            --image "${{ secrets.ACR_NAME }}.azurecr.io/my-frontend:latest" \
+            --ingress external \
+            --target-port 3000 \
+            --registry-server "${{ secrets.ACR_NAME }}.azurecr.io" \
+            --registry-username "${{ secrets.REGISTRY_USERNAME }}" \
+            --registry-password "${{ secrets.REGISTRY_PASSWORD }}"
