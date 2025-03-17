@@ -41,8 +41,8 @@ jobs:
 
           # Deploy or update the container app
           az containerapp up \
-            --name "${{ secrets.CONTAINER_APP_NAME_AUTO }}" \
-            --resource-group "${{ secrets.RESOURCE_GROUP }}" \
+            --name "frontend-app-container" \
+            --resource-group "rg-ranjitha" \
             --environment "${{ secrets.CONTAINERAPPS_ENVIRONMENT }}" \
             --image "${{ secrets.ACR_NAME }}.azurecr.io/my-frontend:latest" \
             --ingress external \
