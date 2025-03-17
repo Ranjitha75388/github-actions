@@ -17,5 +17,13 @@ COPY . .
 # Expose port 3000 for the application
 # EXPOSE 3000
 
+# Set the environment variable to change the port
+ENV PORT=80
+
+# Expose port 80 for the application
+EXPOSE 80
+
+
+
 # Command to run the application
 CMD ["npm", "start"]
