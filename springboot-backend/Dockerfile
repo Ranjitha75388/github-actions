@@ -3,7 +3,7 @@ FROM maven:3.8.5-openjdk-17 AS build
 
 WORKDIR /app
 
-# Copy the project files to the container
+# Copy the project files to the container.
 COPY . .
 
 # Build the application (without running tests)
