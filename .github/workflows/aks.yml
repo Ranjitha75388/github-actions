@@ -1,4 +1,4 @@
-name: Build & Push to Aks
+name: Build & Push to AKS
 
 on:
   push:
@@ -25,7 +25,7 @@ jobs:
         tenant-id: ${{ secrets.AZURE_TENANT_ID }}
         subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-    # Login to Azure Container Registry
+    # Login to Azure Container Registry (ACR)
     - name: Docker Login to ACR
       uses: docker/login-action@v3
       with:
@@ -33,23 +33,23 @@ jobs:
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
 
-    # ✅ Build and Push Frontend Image
+    # ✅ Build and Push Frontend Image for arm64
     - name: Build and Push Frontend
       uses: docker/build-push-action@v5
       with:
         context: ./react-hooks-frontend
         push: true
         tags: ${{ secrets.ACR_NAME }}.azurecr.io/frontend:latest
-        platforms: linux/amd64
+        platforms: linux/arm64
 
-    # ✅ Build and Push Backend Image with DB args
+    # ✅ Build and Push Backend Image for arm64 with DB build args
     - name: Build and Push Backend
       uses: docker/build-push-action@v5
       with:
         context: ./springboot-backend
         push: true
         tags: ${{ secrets.ACR_NAME }}.azurecr.io/backend:latest
-        platforms: linux/amd64
+        platforms: linux/arm64
         build-args: |
           DB_HOST=${{ secrets.DB_HOST }}
           DB_PORT=${{ secrets.DB_PORT }}
