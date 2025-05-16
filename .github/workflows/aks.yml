@@ -33,6 +33,11 @@ jobs:
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
 
+    # Add this step *before* the docker/build-push-action
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v3
+
+
     # ✅ Build and Push Frontend Image for arm64
     - name: Build and Push Frontend
       uses: docker/build-push-action@v5
