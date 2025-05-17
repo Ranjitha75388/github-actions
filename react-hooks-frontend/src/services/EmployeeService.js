@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const EMPLOYEE_BASE_REST_API_URL = 'https://backend-container.orangesea-26381e22.centralindia.azurecontainerapps.io/api/v1/employees';
+const EMPLOYEE_BASE_REST_API_URL = 'https://20.235.210.242:8080/api/v1/employees';
 
 class EmployeeService{
 
